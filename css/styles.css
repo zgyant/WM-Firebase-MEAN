@@ -1,0 +1,49 @@
+header
+{
+    width:100%;
+    min-height:10%;
+}
+li  i, li a{
+	color:black;
+}
+nav a, nav i{color:black!important;}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+.white ul li a{color:black;}
+  main {
+    flex: 1 0 auto;
+	width:95%;
+	margin:auto;
+	
+	margin-top:10px;
+	margin-bottom:10%;
+  }
+  
+  #map
+  {
+	  width: 100%; 
+	  float:left;
+	  height: 500px;
+  }
+  #notification
+  {
+	  float:right;
+	  width:40%;
+  }
+  footer
+  {
+	  border-top:1px grey solid;
+  }
+  header{
+	  border-bottom:1px grey solid;
+  }
+ 
+  nav
+  {
+	  -webkit-box-shadow: none!important;
+	-moz-box-shadow: none!important;
+	  box-shadow:none!important;
+  }
