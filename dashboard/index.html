@@ -8,7 +8,10 @@
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
-	
+	<link href="css/leaflet-search.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.css" />
+
+
 	<!--Custom Font-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 	<!--[if lt IE 9]>
@@ -18,6 +21,18 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
+
+	<style>
+		#map
+		{
+			width:100%;
+			min-height:700px;
+		}
+		body {
+			overflow-x: hidden !important;
+		}
+	</style>
+
 
 
 </head>
@@ -81,14 +96,14 @@
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Settings <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="#">
+				<ul class="children collapse" id="sub-item-1" style="cursor: pointer">
+					<li><a class="" data-toggle="modal" data-target=".user-account">
 						<span class="fa fa-arrow-right">&nbsp;</span> User Accounts
 					</a></li>
-					<li><a class="" href="#">
+					<li><a class="" data-toggle="modal" data-target=".bin-manag">
 						<span class="fa fa-arrow-right">&nbsp;</span> Bins Management
 					</a></li>
-					<li><a class="" href="#">
+					<li><a class="" data-toggle="modal" data-target=".profile-mod">
 						<span class="fa fa-arrow-right">&nbsp;</span> Profile
 					</a></li>
 				</ul>
@@ -107,10 +122,37 @@
 			</ol>
 		</div><!--/.row-->
 
+
 		<!--/.row-->
 		
 		<div class="panel panel-container">
 			<div class="row">
+				<!-- user acc modal-->
+				<div class="modal fade user-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							this is user account modal
+						</div>
+					</div>
+				</div>
+				<!-- bin management modal-->
+				<div class="modal fade bin-manag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							this is bin management modal
+						</div>
+					</div>
+				</div>
+				<!-- profile  modal-->
+				<div class="modal fade profile-mod" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							this is profile modal
+						</div>
+					</div>
+				</div>
+
+
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-teal panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-trash-o color-blue"></em>
@@ -152,11 +194,12 @@
 					<div class="panel-heading">
 						Bins Overview
 						<!--MAP START-->
-						<div id="map">
 
-						</div>
-						<!--MAP END-->
 				</div>
+					<div id="map">
+
+					</div>
+					<!--MAP END-->
 			</div>
 		</div><!--/.row-->
 		
@@ -168,15 +211,66 @@
 		</div><!--/.row-->
 	</div>	<!--/.main-->
 	</div>
-	<script src="js/jquery-1.11.1.min.js"></script>
+
+	<!--<script src="js/jquery-1.11.1.min.js"></script>-->
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/custom.js"></script>
 
+	<!-- Leaflet -->
+	<script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
 
+	<!-- leaflet src-->
+	<script src="js/leaflet-search.src.js"></script>
+
+	<script>
+
+        //sample data values for populate map
+        var data = [
+            {"loc":[41.575730,13.002411], "title":"black"}
+        ];
+
+        var map = new L.Map('map', {zoom: 9, center: new L.latLng(data[0].loc) });	//set center from first location
+
+        map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
+
+        var markersLayer = new L.LayerGroup();	//layer contain searched elements
+
+        map.addLayer(markersLayer);
+
+        var controlSearch = new L.Control.Search({
+            position:'topright',
+            layer: markersLayer,
+            initial: false,
+            zoom: 12,
+            marker: false
+        });
+
+        map.addControl( controlSearch );
+
+        ////////////populate map with markers from sample data
+        for(i in data) {
+            var title = data[i].title,	//value searched
+                loc = data[i].loc,		//position found
+                marker = new L.Marker(new L.latLng(loc), {title: title} );//se property searched
+            marker.bindPopup('title: '+ title );
+            markersLayer.addLayer(marker);
+        }
+
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize:     [28, 25],
+                iconAnchor:   [22, 94],
+                popupAnchor:  [-3, -76]
+            }
+        });
+
+        var greenIcon = new LeafIcon({iconUrl: 'images/red-bin.png'});
+        L.marker([41.575730,13.002411], {icon: greenIcon}).bindPopup("This bin is empty.").addTo(map);
+        L.marker([41.575730,13.002411], {icon: greenIcon}).bindPopup("This bin is full.").addTo(map);
+
+
+	</script>
 </body>
 </html>
+
