@@ -152,7 +152,7 @@
 
 		<!--/.row-->
 		
-		<div class="panel panel-container">
+		<div class="panel panel-container" style="">
 			<div class="row">
 				<!-- user acc modal-->
 				<!--<div class="modal fade user-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
@@ -280,7 +280,7 @@
 
         for (var i = 0; i < addressPoints.length; i++) {
             var a = addressPoints[i];
-            var title = a[2];
+            var title = '<b>Bin Capacity: </b>15L<br><b>Free: </b>1L<br><button class="btn btn-primary" href="#">NOTIFY</button>';
             var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
             marker.bindPopup(title);
             markers.addLayer(marker);
