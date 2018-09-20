@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Waste Management System - Dashboard</title>
+	<title>Waste Management System - Users</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
@@ -22,7 +22,6 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
 
-
 	<style>
 		#map
 		{
@@ -32,12 +31,20 @@
 		body {
 			overflow-x: hidden !important;
 		}
+		.sidebar ul.nav .active a
+		{
+			background: #C60C06 !important;
+		}
+		.sidebar ul.nav a:hover
+		{
+			background: #C60C06;
+		}
 	</style>
 
 
 
 </head>
-<body  ng-app="WasteManagement" ng-controller="wasteController">
+<body>
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -45,14 +52,10 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span></button>
-				<a class="navbar-brand" href="#"><span>Waste Management</span> System</a>
-				<a class="navbar-brand" href="/users" ng-click="showUser()"> | USER</a>
-				<a class="navbar-brand" href="/mod" ng-click="showMod()"> | MODERATOR |</a>
-
+				<a class="navbar-brand" href="#"><span style="color: #C60C06 !important;">Waste Management</span> System</a>
 				<ul class="nav navbar-top-links navbar-right">
-
 					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-						<em class="fa fa-bell"></em><span class="label label-danger">15</span>
+						<em class="fa fa-bell"></em><span class="label label-danger">1</span>
 					</a>
 						<ul class="dropdown-menu dropdown-messages">
 							<li>
@@ -76,15 +79,13 @@
 					</li>
 
 				</ul>
-
 			</div>
 		</div><!-- /.container-fluid -->
 	</nav>
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="{{url}}" class="img-responsive" alt="">
-				{{thisurl}}
+				<img src="https://secure.gravatar.com/avatar/69785ed8da188d8a590ef5044b0dd38f?s=50&d=retro&r=g" class="img-responsive" alt="">
 			</div>
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">Username</div>
@@ -93,19 +94,42 @@
 			<div class="clear"></div>
 		</div>
 		<div class="divider"></div>
+		<!--<form role="search">-->
+			<!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+				<!--&lt;!&ndash;<input type="text" ng-model="searchString" class="form-control" placeholder="Search">&ndash;&gt;-->
+			<!--&lt;!&ndash;</div>&ndash;&gt;-->
+			<!--<div class="wrapper text-center" ng-app="app" ng-controller="index">-->
+				<!--<div class="text-wrapper">-->
+					<!--<div class="search-wrapper">-->
+						<!--<input type="text" class="input" ng-model="searchString" placeholder="enter your search terms">-->
+					<!--</div>-->
+					<!--<	ul class="nav menu">-->
 
-		<ul class="nav menu changeMenu">
+					<!--<div class="result-wrapper" ng-repeat="item in items | searchFilter: searchString">-->
+						<!--<li>-->
+						<!--<a href="{{ item.url }}">-->
+							<!--<a href="index.html"><em class="{{ item.image }}">&nbsp;</em> {{ item.title }}</a></li>-->
+						<!--</a>-->
+						<!--</li>-->
+						<!--<li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>-->
+					<!--</div>-->
+					<!--</ul>-->
+				<!--</div>-->
+
+			<!--</div>-->
+		<!--</form>-->
+		<ul class="nav menu">
 			<li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Settings <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-1" style="cursor: pointer">
-					<li><a class="" data-toggle="modal" data-target=".user-account">
-						<span class="fa fa-arrow-right">&nbsp;</span> User Accounts
-					</a></li>
-					<li><a class="" data-toggle="modal" data-target=".bin-manag">
-						<span class="fa fa-arrow-right">&nbsp;</span> Bins Management
-					</a></li>
+					<!--<li><a class="" data-toggle="modal" data-target=".user-account">-->
+						<!--<span class="fa fa-arrow-right">&nbsp;</span> User Accounts-->
+					<!--</a></li>-->
+					<!--<li><a class="" data-toggle="modal" data-target=".bin-manag">-->
+						<!--<span class="fa fa-arrow-right">&nbsp;</span> Bins Management-->
+					<!--</a></li>-->
 					<li><a class="" data-toggle="modal" data-target=".profile-mod">
 						<span class="fa fa-arrow-right">&nbsp;</span> Profile
 					</a></li>
@@ -114,7 +138,7 @@
 			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
-
+		
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
@@ -131,22 +155,22 @@
 		<div class="panel panel-container">
 			<div class="row">
 				<!-- user acc modal-->
-				<div class="modal fade user-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							this is user account modal
-						</div>
-					</div>
-				</div>
+				<!--<div class="modal fade user-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
+					<!--<div class="modal-dialog modal-lg">-->
+						<!--<div class="modal-content">-->
+							<!--this is user account modal-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
 				<!-- bin management modal-->
-				<div class="modal fade bin-manag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							this is bin management modal
-						</div>
-					</div>
-				</div>
-				<!-- profile  modal-->
+				<!--<div class="modal fade bin-manag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
+					<!--<div class="modal-dialog modal-lg">-->
+						<!--<div class="modal-content">-->
+							<!--this is bin management modal-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--&lt;!&ndash; profile  modal&ndash;&gt;-->
 				<div class="modal fade profile-mod" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -182,9 +206,9 @@
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-orange panel-widget border-right">
-						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
+						<div class="row no-padding"><em class="fa fa-xl fa-clock-o color-teal"></em>
 							<div class="large">24</div>
-							<div class="text-muted">Users</div>
+							<div class="text-muted">Pending Tasks</div>
 						</div>
 					</div>
 				</div>
@@ -229,6 +253,43 @@
 	<link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
 	<script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 	<script src="https://leaflet.github.io/Leaflet.markercluster/example/realworld.388.js"></script>
+	<script type="text/javascript">
+
+        var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+            }),
+            latlng = L.latLng(-37.82, 175.24);
+
+        var map = L.map('map', {center: latlng, zoom: 13, layers: [tiles]});
+
+        var markers = L.markerClusterGroup();
+        var markersLayer = new L.LayerGroup();	//layer contain searched elements
+
+        map.addLayer(markersLayer);
+
+        var controlSearch = new L.Control.Search({
+            position:'topright',
+            layer: markersLayer,
+            initial: false,
+            zoom: 12,
+            marker: false
+        });
+
+        map.addControl( controlSearch );
+
+        for (var i = 0; i < addressPoints.length; i++) {
+            var a = addressPoints[i];
+            var title = a[2];
+            var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+            marker.bindPopup(title);
+            markers.addLayer(marker);
+        }
+
+        map.addLayer(markers);
+
+	</script>
+
 	<!--<script>-->
 
         <!--//sample data values for populate map-->
@@ -271,78 +332,12 @@
             <!--}-->
         <!--});-->
 
-
         <!--var greenIcon = new LeafIcon({iconUrl: 'images/red-bin.png'});-->
         <!--L.marker([41.575730,13.002411], {icon: greenIcon}).bindPopup("This bin is empty.").addTo(map);-->
         <!--L.marker([41.575730,13.002411], {icon: greenIcon}).bindPopup("This bin is full.").addTo(map);-->
-        <!--var markerClusters = L.markerClusterGroup();-->
 
-        <!--for ( var i = 0; i < markers.length; ++i )-->
-        <!--{-->
-            <!--var popup = markers[i].name +-->
-                <!--'<br/>' + markers[i].city +-->
-                <!--'<br/><b>IATA/FAA:</b> ' + markers[i].iata_faa +-->
-                <!--'<br/><b>ICAO:</b> ' + markers[i].icao +-->
-                <!--'<br/><b>Altitude:</b> ' + Math.round( markers[i].alt * 0.3048 ) + ' m' +-->
-                <!--'<br/><b>Timezone:</b> ' + markers[i].tz;-->
-
-            <!--var m = L.marker( [markers[i].lat, markers[i].lng], {icon: myIcon} )-->
-                <!--.bindPopup( popup );-->
-
-            <!--markerClusters.addLayer( m );-->
-        <!--}-->
-
-        <!--map.addLayer( markerClusters );-->
 
 	<!--</script>-->
-
-	<script type="text/javascript">
-
-        var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 18,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
-            }),
-            latlng = L.latLng(-37.82, 175.24);
-
-        var map = L.map('map', {center: latlng, zoom: 13, layers: [tiles]});
-
-        var markers = L.markerClusterGroup();
-        var markersLayer = new L.LayerGroup();	//layer contain searched elements
-
-        map.addLayer(markersLayer);
-
-        var controlSearch = new L.Control.Search({
-            position:'topright',
-            layer: markersLayer,
-            initial: false,
-            zoom: 12,
-            marker: false
-        });
-
-        map.addControl( controlSearch );
-
-        for (var i = 0; i < addressPoints.length; i++) {
-            var a = addressPoints[i];
-            var title = a[2];
-            var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
-            marker.bindPopup(title);
-            markers.addLayer(marker);
-        }
-
-        map.addLayer(markers);
-
-	</script>
-<script>
-    var app = angular.module('WasteManagement', []);
-    app.controller("wasteController", function ($scope) {
-        $scope.url="http://placehold.it/50/30a5ff/fff";
-        // $scope.thisurl=window.location.href;
-    })
-
-
-
-
-</script>
 
 </body>
 </html>
