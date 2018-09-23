@@ -223,6 +223,8 @@
 
 	<!-- Leaflet -->
 	<script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+	<link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+	<script src="//unpkg.com/leaflet-gesture-handling"></script>
 
 	<!-- leaflet src-->
 	<script src="js/leaflet-search.src.js"></script>
@@ -238,7 +240,7 @@
             }),
             latlng = L.latLng(-37.82, 175.24);
 
-        var map = L.map('map', {center: latlng, zoom: 13, layers: [tiles]});
+        var map = L.map('map', {center: latlng, zoom: 13, layers: [tiles], gestureHandling: 'cooperative'});
 
         var markers = L.markerClusterGroup();
         var markersLayer = new L.LayerGroup();	//layer contain searched elements
