@@ -1,16 +1,24 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express')();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
+router.get('/', function(req, res) {
+    res.sendfile('public/dashboard/login.html');
 });
 
-router.get('/users', function(req, res, next) {
+router.get('/login', function(req, res) {
+    res.sendfile('public/dashboard/login.html');
+});
+
+router.post('/user/login', function(req, res) {
+    res.send('POST request to the homepage')
+});
+
+
+router.get('/users', function(req, res) {
     res.sendfile('public/dashboard/users.html');
 });
 
-router.get('/mod', function(req, res, next) {
+router.get('/mod', function(req, res) {
     res.sendfile('public/dashboard/moderator.html');
 });
 
