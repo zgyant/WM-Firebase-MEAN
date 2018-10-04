@@ -1,5 +1,6 @@
 # Waste Management System
 
+
 ### Cloning and running the repository
 
 ```
@@ -26,6 +27,7 @@ $ git checkout <branch-name>
 ```
 $ git branch WMP-issue_number
 ```
+
 
 #### Example
 If the issue number is 10 is assigned to you then you should follow steps described below:
