@@ -1,0 +1,97 @@
+<div style="margin-top: 4%"></div>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+  <div class="row">
+    <ol class="breadcrumb">
+      <li><a href="#">
+        <em class="fa fa-home"></em>
+      </a></li>
+      <li class="active">Home</li>
+    </ol>
+  </div><!--/.row-->
+
+
+  <!--/.row-->
+
+  <div class="panel panel-container">
+    <div class="row">
+      <!-- user acc modal-->
+      <div class="modal fade user-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            this is user account modal
+          </div>
+        </div>
+      </div>
+      <!-- bin management modal-->
+      <div class="modal fade bin-manag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            this is bin management modal
+          </div>
+        </div>
+      </div>
+      <!-- profile  modal-->
+      <div class="modal fade profile-mod" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            this is profile modal
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-teal panel-widget border-right">
+          <div class="row no-padding"><em class="fa fa-xl fa-trash-o color-blue"></em>
+            <div class="large">120</div>
+            <div class="text-muted">Empty Bins</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-red panel-widget ">
+          <div class="row no-padding"><em class="fa fa-xl fa-trash color-red"></em>
+            <div class="large">25</div>
+            <div class="text-muted">Full Bins</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-blue panel-widget border-right">
+          <div class="row no-padding"><em class="fa fa-xl fa-bell color-orange"></em>
+            <div class="large">52</div>
+            <div class="text-muted">Notifications</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-orange panel-widget border-right">
+          <div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
+            <div class="large">24</div>
+            <div class="text-muted">Users</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!--/.row-->
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Bins Overview
+          <!--MAP START-->
+
+        </div>
+
+        <app-leafletmap></app-leafletmap>
+
+        <!--MAP END-->
+      </div>
+    </div><!--/.row-->
+
+<app-footer></app-footer>
+    <!--/.row-->
+  </div>	<!--/.main-->
+</div>
+
