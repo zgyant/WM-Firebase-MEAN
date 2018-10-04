@@ -3,7 +3,7 @@
 ### Cloning and running the repository
 
 ```
-$ git clone https://nischaljungkarki@bitbucket.org/itpproject2018/wastemanagement.git
+$ git clone https://{{your username}}@bitbucket.org/itpproject2018/wastemanagement.git
 $ cd wastemanagement
 $ npm install
 $ ng build
