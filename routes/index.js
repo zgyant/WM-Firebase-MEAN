@@ -1,51 +1,45 @@
 var express = require('express');
 var router = express.Router();
-var userModel=require('../models/usermodel');
+var User=require('../models/usermodel');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
+var config = require('../config/database');
+var jwt = require('jsonwebtoken');
+require('../config/passport')(passport);
 var Strategy = require('passport-local').Strategy;
-router.use(session({
-    resave: true,
-    saveUninitialized: true,
-    secret: 'anything',
-}));
-router.use(passport.initialize());
-router.use(passport.session());
 
-passport.use(new Strategy(
-    function(username, password, cb) {
-        userModel.findByUsername(username, function(err, userModel) {
-            if (err) { return cb(err); }
-            if (!userModel) { return cb(null, false); }
-            if (userModel.password != password) { return cb(null, false); }
-            return cb(null, userModel);
-        });
-    }
-));
-
-passport.serializeUser(function(userModel, cb) {
-    cb(null, userModel.id);
-});
-
-passport.deserializeUser(function(id, cb) {
-    userModel.findById(id, function (err, userModel) {
-        if (err) { return cb(err); }
-        cb(null, userModel);
-    });
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendFile('../client/dist/wastemanagement/index.html',{ username : req.username });
+    res.send('Express RESTful API');
 });
 
 
-router.post('/login',
-    passport.authenticate('local', { failureRedirect: '/login' }),
-    function(req, res) {
-        res.redirect('/home');
+router.post('/login', function(req, res) {
+    User.findOne({
+        username: req.body.username
+    }, function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+            res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+            // check if password matches
+            user.comparePassword(req.body.password, function (err, isMatch) {
+                if (isMatch && !err) {
+                    // if user is found and password is right create a token
+                    var token = jwt.sign(user.toJSON(), config.secret);
+                    // return the information including token as JSON
+                    res.json({success: true, token: 'JWT ' + token,userName:req.body.username});
+                } else {
+                    res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+                }
+            });
+        }
     });
+});
+
 
 router.get('/logout', function(req, res) {
     //req.session.reset();
@@ -56,7 +50,7 @@ router.get('/logout', function(req, res) {
 
 router.get('/newuser',function(req,res)
 {
-    var newUser = new userModel({
+    var newUser = new User({
 
         fullName:"Jayant Mishra",
         username:"admin",
@@ -73,5 +67,17 @@ router.get('/newuser',function(req,res)
     return res.redirect('/login')
 
 });
+getToken = function (headers) {
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
 
 module.exports = router;

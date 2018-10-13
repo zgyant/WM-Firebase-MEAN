@@ -5,16 +5,20 @@
           <div class="login-panel panel panel-default">
             <div class="panel-heading">LOGIN</div>
             <div class="panel-body">
-              <form role="form" method="post" action="/login">
+              <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{message}}
+              </div>
+              <form role="form" method="post" (ngSubmit)="login()" #loginForm="ngForm">
                 <fieldset>
                   <div class="form-group">
-                    <input class="form-control" placeholder="USERNAME" name="username" type="text" autofocus="">
+                    <input class="form-control" placeholder="USERNAME" [(ngModel)]="loginData.username" required name="username" type="text" autofocus="">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" placeholder="***********" name="password" type="password" value="">
+                    <input class="form-control" placeholder="***********" [(ngModel)]="loginData.password" required name="password" type="password" value="">
                   </div>
 
-                  <input type="submit" class="btn btn-danger" style="float: right " value="LOGIN">
+                  <input type="submit" [disabled]="!loginForm.form.valid"  class="btn btn-danger" style="float: right " value="LOGIN">
                 </fieldset>
               </form>
             </div>
