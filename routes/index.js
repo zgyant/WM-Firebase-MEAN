@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 require('../config/passport')(passport);
 var Strategy = require('passport-local').Strategy;
 
-
+console.log(config);
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.send('Express RESTful API');

@@ -27,7 +27,7 @@ username:any;
     }
   }
     logout() {
-      console.log('dasda');
+        console.log('clicked logout');
         localStorage.removeItem('jwtToken');
         localStorage.removeItem('username');
         this.router.navigate(['']);

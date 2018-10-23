@@ -1,4 +1,4 @@
 module.exports = {
     'secret':'meansecure',
-    'database': 'mongodb://localhost:27017/wastemanagement'
+    'database': 'mongodb://admin:admin123@ds243931.mlab.com:43931/wastemgmt'
 };
