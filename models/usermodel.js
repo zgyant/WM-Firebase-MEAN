@@ -6,9 +6,9 @@ var passportLocalMongoose = require('passport-local-mongoose');
 // create a schema
 var userModelSchema = new Schema({
     fullName:String,
-    username:String,
+    username:{type:String,unique:true},
     password: String,
-    email: String,
+    email: {type:String,unique:true},
     country:String,
     created_at: Date,
     is_active: Boolean,

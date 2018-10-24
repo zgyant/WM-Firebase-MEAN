@@ -35,10 +35,61 @@
                         cursor: pointer;
                     }
                 </style>
-                <button class="button">Add User</button>
+                <button class="button" data-toggle="modal" data-target="#addUserModal">Add User</button>
                 <br/>
                 <hr/>
+                <!-- Modal for add user-->
+                <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Enter New User Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form  role="form" method="post" #userForm="ngForm" (ngSubmit)="addUser()" onsubmit="$('#addUserModal').modal('hide');">
+                                    <div class="form-group">
+                                        <label for="fullName">Full Name</label>
+                                        <input type="text" [(ngModel)]="userDataNew.fullname" required class="form-control" id="fullName" name="fullname" aria-describedby="fullName" placeholder="Enter Full Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userName">Username</label>
+                                        <input type="text"  [(ngModel)]="userDataNew.username" required class="form-control" name="username" id="userName" aria-describedby="userName" placeholder="Enter Username">
+                                        <small id="userNameHelp" class="form-text text-muted">This will be a unique one.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userType">User Type</label>
+                                        <select  [(ngModel)]="userDataNew.usertype" required name="usertype" class="form-control" id="userType">
+                                            <option value="admin">Admin</option>
+                                            <option value="moderator">Moderator</option>
+                                            <option value="users">Users</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xs-6">
+                                        <label for="emailUser">Email</label>
+                                        <input   [(ngModel)]="userDataNew.email" required name="emailuser" type="email" class="form-control" id="emailUser" aria-describedby="email"  placeholder="example@example.com">
+                                    </div>
+                                    <div class="form-group col-xs-6">
+                                        <label for="password">Password</label>
+                                        <input name="password"  required [(ngModel)]="userDataNew.password" type="password" class="form-control" id="password" aria-describedby="password" value="" placeholder="*******">
+                                        <a style="cursor: pointer;float: right" (click)="randomize()">Generate Password</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="countryList">Country</label>
+                                        <input  required [(ngModel)]="userDataNew.country"name="country" type="text" class="form-control" id="countryList" aria-describedby="country"  placeholder="Enter Country Name">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <input type="submit" [disabled]="!userForm.form.valid"  class="btn btn-primary" style="float: right"  value="Add User">
+                                    </div>
+                                </form>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
                 <div id="manage_user" style="width: 85%;margin: auto;margin-top: 6%">
 
                     <table id="userTable" class="display">

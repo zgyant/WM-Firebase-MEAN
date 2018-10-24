@@ -8,7 +8,14 @@ var config = require('../config/database');
 var jwt = require('jsonwebtoken');
 require('../config/passport')(passport);
 var Strategy = require('passport-local').Strategy;
-
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'hashitpteam@gmail.com',
+        pass: 'wwdemo123'
+    }
+});
 console.log(config);
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -65,8 +72,39 @@ router.get('/newuser',function(req,res)
     newUser.save();
 
     return res.redirect('/login')
-
 });
+
+router.post('/add/newuser',function(req,res)
+{
+    var newUser = new User({
+
+        fullName:req.body.fullname,
+        username:req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        country:req.body.country,
+        created_at: Date.now(),
+        is_active: 1,
+        userType: req.body.usertype,
+    });
+    newUser.save();
+    var mailOptions = {
+        from: 'hashitpteam@gmail.com',
+        to: req.body.email,
+        subject: 'New Account Created',
+        text: 'Below is the detail to waste management system by Hash: \nUsername: '+req.body.email+'\nPassword: '+req.body.password,
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+
+    res.json({success: true,msg: 'New user added'});
+});
+
 router.get('/users/getAll',function(req,res){
 
    var findAllQuery= User.find()
