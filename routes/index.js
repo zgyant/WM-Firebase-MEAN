@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
     res.send('Express RESTful API');
 });
 
-
+//ROUTE TO CHECK THE LOGIN
 router.post('/login', function(req, res) {
     User.findOne({
         username: req.body.username
@@ -48,14 +48,14 @@ router.post('/login', function(req, res) {
     });
 });
 
-
+//ROUTE TO LOGOUT
 router.get('/logout', function(req, res) {
     //req.session.reset();
     req.logout();
     res.redirect('login');
 });
 
-
+//MANUAL USER INSERT
 router.get('/newuser',function(req,res)
 {
     var newUser = new User({
@@ -75,6 +75,7 @@ router.get('/newuser',function(req,res)
     return res.redirect('/login')
 });
 
+//ROUTE TO ADD NEW USER
 router.post('/add/newuser',function(req,res)
 {
     var newUser = new User({
@@ -88,6 +89,7 @@ router.post('/add/newuser',function(req,res)
         is_active: 1,
         userType: req.body.usertype,
     });
+    console.log(req.body.password);
     newUser.save();
     var mailOptions = {
         from: 'hashitpteam@gmail.com',
@@ -106,9 +108,11 @@ router.post('/add/newuser',function(req,res)
     res.json({success: true,msg: 'New user added'});
 });
 
+
+//ROUTE TO VIEW USER DATA IN DATATABLE
 router.get('/users/getAll',function(req,res){
 
-   var findAllQuery= User.find()
+   var findAllQuery= User.find({'is_active':'true'})
     findAllQuery.exec().then(function(userData){
         return res.json(userData);
     });
@@ -116,6 +120,12 @@ router.get('/users/getAll',function(req,res){
     console.log('Getting all the users saved');
 
 });
+
+
+//ROUTE TO PARSE THE JSON MAP DATA
+
+
+
 getToken = function (headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');

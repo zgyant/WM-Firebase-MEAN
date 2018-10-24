@@ -32,7 +32,7 @@ export class UsermanagementComponent implements OnInit {
             this.router.navigate(['/home']);
         }
       this.allUserList();
-
+        this.randomize();
   }
 
 
@@ -49,7 +49,9 @@ export class UsermanagementComponent implements OnInit {
                   { "data": "fullName" },
                   { "data": "email" },
                   { "data": "userType" },
-                  { "data": "is_active" },
+                  {"data":"_id","mRender": function ( data, type, row ) {
+                          return '<a title="Toggle"  style="color: orangered" class="copyJS" href="user/toggle/'+data+'" >Remove</a>';
+                      }}
               ],
           });
   }
@@ -65,7 +67,8 @@ export class UsermanagementComponent implements OnInit {
     }
     randomize(){
       var random = Math.random().toString(36).substring(2);
-      document.getElementById('password').value = random;
+
+        (<HTMLInputElement>document.getElementById('passwordUser')).value = random;
   }
 }
 

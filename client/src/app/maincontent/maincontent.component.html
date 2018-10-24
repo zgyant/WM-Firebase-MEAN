@@ -14,30 +14,6 @@
 
   <div class="panel panel-container">
     <div class="row">
-      <!-- user acc modal-->
-      <div class="modal fade user-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            this is user account modal
-          </div>
-        </div>
-      </div>
-      <!-- bin management modal-->
-      <div class="modal fade bin-manag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            this is bin management modal
-          </div>
-        </div>
-      </div>
-      <!-- profile  modal-->
-      <div class="modal fade profile-mod" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            this is profile modal
-          </div>
-        </div>
-      </div>
 
 
       <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
@@ -64,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+      <div *ngIf="userType === 'admin'" class="col-xs-6 col-md-3 col-lg-3 no-padding">
         <div class="panel panel-orange panel-widget border-right">
           <div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
             <div class="large">24</div>

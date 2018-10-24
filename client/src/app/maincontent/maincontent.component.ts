@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-maincontent',
@@ -6,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./maincontent.component.css']
 })
 export class MaincontentComponent implements OnInit {
-
-  constructor() { }
+userType:any;
+  constructor(private router: Router) { }
 
   ngOnInit() {
-
+      this.userType= localStorage.getItem('userType');
   }
 
 }

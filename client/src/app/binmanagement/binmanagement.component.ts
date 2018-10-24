@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-binmanagement',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./binmanagement.component.css']
 })
 export class BinmanagementComponent implements OnInit {
-
-  constructor() { }
+userType:any;
+  constructor(private router:Router) { }
 
   ngOnInit() {
+      this.userType= localStorage.getItem('userType');
+      if(this.userType!=='users')
+      {
+      }else
+      {
+          this.router.navigate(['/home']);
+      }
   }
 
 }
