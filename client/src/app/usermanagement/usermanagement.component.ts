@@ -10,9 +10,21 @@ export class UsermanagementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-          $(document).ready( function () {
-              $('#userTable').DataTable();
-          } );
+      $('#userTable').DataTable(
+          {
+              type: "GET",
+              dataType:"json",
+              "scrollY":        "400px",
+              "scrollCollapse": true,
+              ajax:{ "url":"/api/users/getAll","dataSrc":""},
+
+              columns: [
+                  { "data": "fullName" },
+                  { "data": "email" },
+                  { "data": "userType" },
+                  { "data": "is_active" },
+              ],
+          });
   }
 
 }

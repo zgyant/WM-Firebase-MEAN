@@ -67,6 +67,16 @@ router.get('/newuser',function(req,res)
     return res.redirect('/login')
 
 });
+router.get('/users/getAll',function(req,res){
+
+   var findAllQuery= User.find()
+    findAllQuery.exec().then(function(userData){
+        return res.json(userData);
+    });
+
+    console.log('Getting all the users saved');
+
+});
 getToken = function (headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');

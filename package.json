@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@types/jquery": "^3.3.22",
     "bcrypt-nodejs": "0.0.3",
     "client-sessions": "^0.8.0",
     "cookie-parser": "~1.4.3",
