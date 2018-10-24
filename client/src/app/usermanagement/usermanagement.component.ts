@@ -10,6 +10,9 @@ export class UsermanagementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+          $(document).ready( function () {
+              $('#userTable').DataTable();
+          } );
   }
 
 }

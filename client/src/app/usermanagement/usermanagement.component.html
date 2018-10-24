@@ -20,8 +20,52 @@
                     Manage Users
 
                 </div>
+                <style>
+                    .button {
+                        background-color: darkslateblue;
+                        border: none;
+                        color: white;
+                        padding: 10px 20px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin-left:5%;
+                        margin-top:2%;
+                        cursor: pointer;
+                    }
+                </style>
+                <button class="button">Add User</button>
+                <br/>
+                <hr/>
 
-                <div id="manage_user"></div>
+                <div id="manage_user" style="width: 85%;margin: auto;margin-top: 6%">
+
+                    <table id="userTable" class="display">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>User Type</th>
+                            <th>Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Jayant Mishra</td>
+                            <td>z9yant@gmail.com</td>
+                            <td>Admin</td>
+                            <td>Disable</td>
+                        </tr>
+                        <tr>
+                            <td>Row 2 Data 1</td>
+                            <td>Row 2 Data 1</td>
+                            <td>Row 2 Data 1</td>
+                            <td>Row 2 Data 2</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div><!--/.row-->
