@@ -12,13 +12,17 @@ import { of } from 'rxjs/observable/of';
 export class HeaderComponent implements OnInit {
 
 username:any;
+userType:any;
+fullName:any;
+
     constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
   if(localStorage.getItem('jwtToken'))
   {
-     console.log("All the data : "+localStorage.getItem('username'));
     this.username= localStorage.getItem('username');
+    this.userType= localStorage.getItem('userType');
+    this.fullName= localStorage.getItem('fullName');
   }
   else
     {

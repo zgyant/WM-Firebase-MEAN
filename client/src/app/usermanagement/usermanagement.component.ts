@@ -18,6 +18,7 @@ export class UsermanagementComponent implements OnInit {
         };
     message = '';
     data: any;
+    userType:any;
 
     constructor(private http: HttpClient, private router: Router) {
 
@@ -25,7 +26,13 @@ export class UsermanagementComponent implements OnInit {
 
 
   ngOnInit() {
+      this.userType= localStorage.getItem('userType');
+        if(this.userType!='admin')
+        {
+            this.router.navigate(['/home']);
+        }
       this.allUserList();
+
   }
 
 

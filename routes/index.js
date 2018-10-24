@@ -38,7 +38,8 @@ router.post('/login', function(req, res) {
                     // if user is found and password is right create a token
                     var token = jwt.sign(user.toJSON(), config.secret);
                     // return the information including token as JSON
-                    res.json({success: true, token: 'JWT ' + token,userName:req.body.username});
+                    console.log(user.toJSON());
+                    res.json({success: true, token: 'JWT ' + token,userName:req.body.username,userDetails:user.toJSON()});
                 } else {
                     res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
                 }
@@ -92,7 +93,7 @@ router.post('/add/newuser',function(req,res)
         from: 'hashitpteam@gmail.com',
         to: req.body.email,
         subject: 'New Account Created',
-        text: 'Below is the detail to waste management system by Hash: \nUsername: '+req.body.email+'\nPassword: '+req.body.password,
+        text: 'Below is the detail to waste management system by Hash: \nUsername: '+req.body.username+'\nPassword: '+req.body.password,
     };
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
