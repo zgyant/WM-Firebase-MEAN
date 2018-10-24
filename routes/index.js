@@ -90,22 +90,28 @@ router.post('/add/newuser',function(req,res)
         userType: req.body.usertype,
     });
     console.log(req.body.password);
-    newUser.save();
-    var mailOptions = {
-        from: 'hashitpteam@gmail.com',
-        to: req.body.email,
-        subject: 'New Account Created',
-        text: 'Below is the detail to waste management system by Hash: \nUsername: '+req.body.username+'\nPassword: '+req.body.password,
-    };
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
+    newUser.save().then(item => {
 
-    res.json({success: true,msg: 'New user added'});
+        var mailOptions = {
+            from: 'hashitpteam@gmail.com',
+            to: req.body.email,
+            subject: 'New Account Created',
+            text: 'Below is the detail to waste management system by Hash: \nUsername: '+req.body.username+'\nPassword: '+req.body.password,
+        };
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                res.json({success: true,msg: 'New user added'});
+            }
+        });
+    })
+        .catch(err => {
+            res.status(400).send("Duplicate Data (username/email)");
+        });
+
+
 });
 
 

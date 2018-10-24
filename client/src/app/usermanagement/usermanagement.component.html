@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="form-group col-xs-6">
                                         <label for="passwordUser">Password</label>
-                                        <input  [(ngModel)]="userDataNew.password"  name="password"   type="text" class="form-control" id="passwordUser" aria-describedby="password"  placeholder="*******">
+                                        <input  required [(ngModel)]="userDataNew.password"  name="password"   type="text" class="form-control" id="passwordUser" aria-describedby="password"  placeholder="*******">
                                         <a style="cursor: pointer;float: right" (click)="randomize()">Generate Password</a>
                                     </div>
                                     <div class="form-group">

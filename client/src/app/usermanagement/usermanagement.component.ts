@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient,HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-usermanagement',
   templateUrl: './usermanagement.component.html',
@@ -37,7 +38,7 @@ export class UsermanagementComponent implements OnInit {
 
 
   allUserList(){
-      $('#userTable').DataTable(
+      (<any>$('#userTable')).DataTable(
           {
               type: "GET",
               dataType:"json",
@@ -56,9 +57,11 @@ export class UsermanagementComponent implements OnInit {
           });
   }
 
+
+
     addUser() {
         this.http.post('/api/add/newuser', this.userDataNew).subscribe(res=>{
-            $("#userTable").dataTable().fnDestroy();
+            (<any>$("#userTable")).DataTable().destroy();
             this.allUserList();
             this.router.navigate(['/user_management']);
         });
@@ -68,7 +71,7 @@ export class UsermanagementComponent implements OnInit {
     randomize(){
       var random = Math.random().toString(36).substring(2);
 
-        (<HTMLInputElement>document.getElementById('passwordUser')).value = random;
+        this.userDataNew.password = random;
   }
 }
 
