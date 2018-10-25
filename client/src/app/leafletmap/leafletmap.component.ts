@@ -12,6 +12,17 @@ export class LeafletmapComponent implements OnInit {
   constructor(private httpclient: HttpClient) { }
 
   ngOnInit() {
+alert('calling the ajax function');
+    $.ajax({
+      type: 'GET',
+      url: '/api/leafletmap',
+      dataType:"json",
+      success: function(data) {
+      console.log(data); 
+      }
+        });
+
+
       var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               maxZoom: 18,
               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'

@@ -173,7 +173,6 @@ getToken = function (headers) {
 
 router.get ('/leafletmap', function (req, res)
 {
-    console.log (req);   
     const sensor = [
         {
             "mJZZZiDTLH5Xmvn6Kt0x": {
@@ -241,8 +240,8 @@ router.get ('/leafletmap', function (req, res)
             }
         }]
 
-                
-        res.send(sensor);
+    
+    res.return(sensor);
 });
 router.get ('/leafletmapReading', function (req, res){
     const reading = [
@@ -299,7 +298,7 @@ router.get ('/leafletmapReading', function (req, res){
             }
         }
     }]
-    res.send(leafletmapReading);
+    res.return(reading);
     
 });
 
