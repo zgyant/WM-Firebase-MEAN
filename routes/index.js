@@ -9,6 +9,7 @@ var jwt = require('jsonwebtoken');
 require('../config/passport')(passport);
 var Strategy = require('passport-local').Strategy;
 var nodemailer = require('nodemailer');
+var firebase=require('../config/firebase');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
