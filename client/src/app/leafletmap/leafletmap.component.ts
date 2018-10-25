@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 declare let L;
 
 @Component({
@@ -8,7 +9,7 @@ declare let L;
 })
 export class LeafletmapComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpclient: HttpClient) { }
 
   ngOnInit() {
       var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -424,6 +425,17 @@ export class LeafletmapComponent implements OnInit {
           [-37.8198373833, 175.2233606833, "8"],
           [-37.8194342167, 175.22322975, "9"]
       ];
+
+      this.httpclient.get('http://127.0.0.1:3456/leafletmap')
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log("Error occured");
+        }
+      );
+
       for (var i = 0; i < addressPoints.length; i++) {
           var a = addressPoints[i];
           var title = '<b>Bin Capacity: </b>15L<br><b>Free: </b>1L<br><button class="btn btn-primary" href="#">NOTIFY</button>';

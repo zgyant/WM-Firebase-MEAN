@@ -8,6 +8,31 @@ var config = require('../config/database');
 var jwt = require('jsonwebtoken');
 require('../config/passport')(passport);
 var Strategy = require('passport-local').Strategy;
+
+
+var app = require('express')();
+var http = require('http').Server(app);
+
+
+
+
+    app.use ('/leafletmap', router);
+
+
+    app.use('/leafletmap', function (req, res) {
+    req.headers['Access-Control-Allow-Origin'] = '*'
+  })
+
+
+
+    var server = http.listen(3456, 'localhost', function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('running at http://' + host + ':' + port)
+});
+
+
+
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -144,5 +169,138 @@ getToken = function (headers) {
         return null;
     }
 };
+
+
+router.get ('/leafletmap', function (req, res)
+{
+    console.log (req);   
+    const sensor = [
+        {
+            "mJZZZiDTLH5Xmvn6Kt0x": {
+                capacity: 120,
+                location: {
+                    latitude: 34.65,
+                    longitude: 23.6
+                },
+                location_precinct: "LTU Bundoora Campus",
+                hardware_id: "A43ED3... (16 length, HEX)",
+                tags: [
+                    "general_waste",
+                    "recycle1",
+                    "recycle2",
+                    "biohazard1"
+                ]
+            }
+        }, {
+            "secondDTLH5Xmvn6Kt0x": {
+                capacity: 120,
+                location: {
+                    latitude: 35.65,
+                    longitude: 24.65
+                },
+                location_precinct: "LTU Bundoora Campus",
+                hardware_id: "A43ED34.. (16 length, HEX)",
+                tags: [
+                    "general_waste",
+                    "recycle1",
+                    "recycle2",
+                    "biohazard1"
+                ]
+            }
+        }, {
+            "thirdiDTLH5Xmvn6Kt0x": {
+                capacity: 120,
+                location: {
+                    latitude: 36.65,
+                    longitude: 25.6
+                },
+                location_precinct: "LTU Bundoora Campus",
+                hardware_id: "A43ED35.. (16 length, HEX)",
+                tags: [
+                    "general_waste",
+                    "recycle1",
+                    "recycle2",
+                    "biohazard1"
+                ]
+            }
+        }, {
+            "fourthDTLH5Xmvn6Kt0x": {
+                capacity: 120,
+                location: {
+                    latitude: 37.65,
+                    longitude: 26.6
+                },
+                location_precinct: "LTU Bundoora Campus",
+                hardware_id: "A43ED36.. (16 length, HEX)",
+                tags: [
+                    "general_waste",
+                    "recycle1",
+                    "recycle2",
+                    "biohazard1"
+                ]
+            }
+        }]
+
+                
+        res.send(sensor);
+});
+router.get ('/leafletmapReading', function (req, res){
+    const reading = [
+    {
+        "Kb9sYbcd5VPCUi0qynQn": {
+            bunch_of_non_relevant_fields: {},
+            metadata: {
+                non_relevant_sub_field1: some - value - 1,
+                non_relevant_sub_field2: some - value - 2,
+                time: "9 August 2018 at 19:04:20 UTC+10"
+            },
+            payload_fields: {
+                level: 23,
+                hardware_id: "A43ED3... (16 length, HEX)"
+            }
+        }
+    }, {
+        "Kb9sYbcd5VPCUi0qynQn": {
+            bunch_of_non_relevant_fields: {},
+            metadata: {
+                non_relevant_sub_field1: some - value - 1,
+                non_relevant_sub_field2: some - value - 2,
+                time: "9 August 2018 at 19:04:20 UTC+10",
+            },
+            payload_fields: {
+                level: 23,
+                hardware_id: "A43ED34.. (16 length, HEX)"
+            }
+        }
+    }, {
+        "Kb9sYbcd5VPCUi0qynQn": {
+            bunch_of_non_relevant_fields: {},
+            metadata: {
+                non_relevant_sub_field1: some - value - 1,
+                non_relevant_sub_field2: some - value - 2,
+                time: "9 August 2018 at 19:04:20 UTC+10",
+            },
+            payload_fields: {
+                level: 23,
+                hardware_id: "A43ED35.. (16 length, HEX)"
+            }
+        }
+    }, {
+        "Kb9sYbcd5VPCUi0qynQn": {
+            bunch_of_non_relevant_fields: {},
+            metadata: {
+                non_relevant_sub_field1: some - value - 1,
+                non_relevant_sub_field2: some - value - 2,
+                time: "9 August 2018 at 19:04:20 UTC+10",
+            },
+            payload_fields: {
+                level: 23,
+                hardware_id: "A43ED36.. (16 length, HEX)"
+            }
+        }
+    }]
+    res.send(leafletmapReading);
+    
+});
 
 module.exports = router;
