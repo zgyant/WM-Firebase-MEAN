@@ -1,4 +1,5 @@
 var admin = require("firebase-admin");
+var _ = require('underscore');
 
 var serviceAccount = require("./service_account.json");
 
@@ -11,13 +12,7 @@ admin.initializeApp({
 var db = admin.database();
 var ref = db.ref();
 
-// Attach an asynchronous callback to read the data at our posts reference
-ref.on("child_added", function(snapshot) {
-    var bin_data=snapshot.val();
-  console.log(bin_data['metadata']);
-}, function (errorObject) {
-  console.log("The read failed: " + errorObject.code);
-});
+
 
 
 

@@ -9,7 +9,19 @@ var jwt = require('jsonwebtoken');
 require('../config/passport')(passport);
 var Strategy = require('passport-local').Strategy;
 var nodemailer = require('nodemailer');
-var firebase=require('../config/firebase');
+var admin = require("firebase-admin");
+var _ = require('underscore');
+
+var serviceAccount = require("../config/service_account.json");
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://wastemanagement-1540370241908.firebaseio.com"
+});
+
+// Get a database reference to our posts
+var db = admin.database();
+var ref = db.ref();
+
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -22,6 +34,9 @@ console.log(config);
 router.get('/', function(req, res, next) {
     res.send('Express RESTful API');
 });
+
+
+
 
 //ROUTE TO CHECK THE LOGIN
 router.post('/login', function(req, res) {
@@ -130,7 +145,69 @@ router.get('/users/getAll',function(req,res){
 
 
 //ROUTE TO PARSE THE JSON MAP DATA
+router.get('/mapdata',function(req,res) {
+// Attach an asynchronous callback to read the data at our posts reference
+    ref.once("value", function(snapshot) {
+        var bin_data=snapshot.val();
 
+        var keys=Object.keys(bin_data);
+
+        var dataOneArray=new Array();
+        var dataTwoArray=new Array();
+
+        for(var i=0;i<keys.length;i++)
+        {
+            var k=keys[i];
+
+            var metadata=bin_data[k].metadata;
+            var payload_fields=bin_data[k].payload_fields;
+            var capacity=bin_data[k].capacity;
+
+            var hardware_id=bin_data[k].hardware_id;
+            var location=bin_data[k].location;
+            var location_precint=bin_data[k].location_precinct;
+            var tags=bin_data[k].tags;
+            var sensor_hardware_id = payload_fields && payload_fields.hardware_id ? payload_fields.hardware_id : null;
+            var level = payload_fields && payload_fields.level ? payload_fields.level : null;
+            var time = metadata && metadata.time ? metadata.time : null;
+            var latitude = location && location.latitude ? location.latitude : null;
+            var longitude = location && location.longitude ? location.longitude : null;
+            var addressPoint="["+latitude+","+longitude+"]";
+            var dataOne,dataTwo;
+
+            dataOne={hardware_id:hardware_id,capacity:capacity,location_precint:location_precint,addressPoint:addressPoint,latitude:latitude,longitude:longitude,tags:tags};
+
+
+
+
+            dataTwo={hardware_id:sensor_hardware_id,time:time,level:level};
+
+            if(hardware_id)
+                dataOneArray.push(dataOne);
+
+            if(sensor_hardware_id!=null)
+                dataTwoArray.push(dataTwo);
+
+        }
+
+        var arrResult = _.map(dataOneArray, function(obj) {
+            return _.assign(obj, _.find(dataTwoArray, {
+                hardware_id: obj.hardware_id
+            }));
+        });
+
+        return res.json(arrResult);
+       // res.send(JSON.stringify(arrResult));
+
+        console.log("--------------------------------------------");
+
+
+
+
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+});
 
 
 getToken = function (headers) {

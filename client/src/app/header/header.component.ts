@@ -14,9 +14,9 @@ export class HeaderComponent implements OnInit {
 username:any;
 userType:any;
 fullName:any;
+data:any;
 
     constructor(private http: HttpClient, private router: Router) { }
-
   ngOnInit() {
   if(localStorage.getItem('jwtToken'))
   {
