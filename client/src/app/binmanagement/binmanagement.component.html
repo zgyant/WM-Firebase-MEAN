@@ -21,7 +21,28 @@
 
         </div>
 
-        <div id="manage_bin"></div>
+        <div id="manage_bin" style="width: 60%;margin-left:15%;">
+
+          <form  role="form" method="post" #assignForm="ngForm" (ngSubmit)="assignUser()">
+            <div class="form-group ">
+              <label for="userEmail">User Email</label>
+              <select  [(ngModel)]="binAssign.userEmail" required name="userEmail" class="form-control" id="userEmail">
+                <option [value]="ue" *ngFor="let ue of binAssign.userEmail">{{ue}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="binTitle">Bin Title</label>
+              <select  [(ngModel)]="binAssign.binTitle" required name="binTitle" class="form-control" id="binTitle">
+                <option [value]="bn" *ngFor="let bn of binAssign.binTitle">{{bn}}</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <input type="submit"  class="btn btn-primary" style="float: right"  value="Assign User">
+            </div>
+          </form>
+
+
+        </div>
 
       </div>
     </div><!--/.row-->

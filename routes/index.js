@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User=require('../models/usermodel');
+var assignUser=require('../models/mapdatamodal');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
@@ -143,6 +144,53 @@ router.get('/users/getAll',function(req,res){
 
 });
 
+
+//ROUTE TO Asing USER TO BIN
+router.post('/assign/user',function(req,res){
+    ref.orderByChild('location_precinct').equalTo(req.body.binTitle).on("value", function(snapshot) {
+        var search_data=snapshot.val();
+        var keys=Object.keys(search_data);
+
+        for(var i=0;i<keys.length;i++)
+        {
+            var k=keys[i];
+            var hardware_id=search_data[k].hardware_id;
+            var location_precinct=search_data[k].location_precinct;
+        }
+        var assignUsertoBin=new assignUser({
+
+            location_precint: location_precinct,
+            hardware_id:hardware_id,
+            is_active:1,
+            assigned_user_email:req.body.userEmail
+
+        });
+
+        assignUsertoBin.save().then(item => {
+
+            var mailOptions = {
+                from: 'hashitpteam@gmail.com',
+                to: req.body.userEmail,
+                subject: 'New Bin Assigned',
+                text: 'You have been assigned to new bin:\nBin Name: '+location_precinct+'\nHardware Id: '+hardware_id,
+            };
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                    res.json({success: true,msg: 'New user assigned'});
+                }
+            });
+        })
+            .catch(err => {
+                res.status(400).send("Duplicate Data (username/email)");
+            });
+
+    });
+
+
+});
 
 //ROUTE TO PARSE THE JSON MAP DATA
 router.get('/mapdata',function(req,res) {

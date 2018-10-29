@@ -15,7 +15,6 @@ export class LeafletmapComponent implements OnInit {
     }
 
   ngOnInit() {
-
         var addressPoints=new Array();
       $.ajax({
           type: 'GET',
@@ -65,12 +64,20 @@ export class LeafletmapComponent implements OnInit {
 
     for (var i = 0; i < addressPoints.length; i++) {
         var a = addressPoints[i];
-        var free=(((data[i].capacity)-(data[i].level)/(data[i].capacity)))+"%";
-        var title = '<b>Bin Capacity: </b>'+data[i].capacity+'<br><b>Free: </b>'+free+'<br><button class="btn btn-primary" href="#">NOTIFY</button>';
+        var free = ((((data[i].capacity) - (data[i].level)) * 100) / (data[i].capacity)) + "%";
+        if (localStorage.getItem('userType') !== 'users')
+        {
+            var title = data[i].location_precint+'<br><b>Bin Capacity: </b>'+data[i].capacity+'<br><b>Free: </b>'+free+'<br><b>Last Updated: </b>'+data[i].time+'<div><button class="btn btn-primary" href="#">NOTIFY</button></div>';
+        }else
+        {
+            var title = data[i].location_precint+'<br><b>Bin Capacity: </b>'+data[i].capacity+'<br><b>Free: </b>'+free+'<br><b>Last Updated: </b>'+data[i].time+'<div></div>';
+
+        }
         var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
         marker.bindPopup(title);
         markers.addLayer(marker);
     }
+
 
     map.addLayer(markers);
 
