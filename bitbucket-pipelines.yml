@@ -14,3 +14,5 @@ pipelines:
         script: # Modify the commands below to build your repository.
           - npm install
           - npm test
+          - git push https://heroku:d3b3964b-50f8-4ec0-a25a-34f614616751@git.heroku.com/wastemanagementitp.git HEAD:master
+
