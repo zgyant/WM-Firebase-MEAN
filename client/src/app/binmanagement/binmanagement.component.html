@@ -21,7 +21,7 @@
 
         </div>
 
-        <div id="manage_bin" style="width: 60%;margin-left:15%;">
+        <div id="manage_bin" style="width: 60%;margin-left:15%;margin-top:5%">
 
           <form  role="form" method="post" #assignForm="ngForm" (ngSubmit)="assignUser()">
             <div class="form-group ">
@@ -38,6 +38,31 @@
             </div>
             <div class="modal-footer">
               <input type="submit"  class="btn btn-primary" style="float: right"  value="Assign User">
+            </div>
+          </form>
+
+
+        </div>
+
+        <div id="manage_tresh" style="width: 60%;margin-left:15%;margin-top:-25%">
+
+          <form  role="form" method="post" #assignForm="ngForm" (ngSubmit)="assignThres()">
+            <div class="form-group ">
+              <div class="form-group">
+                <label for="binTitleL">Bin Title</label>
+                <select  [(ngModel)]="binThres.hardwareName" required name="hardwareName" class="form-control" id="binTitleL">
+                  <option [value]="bn" *ngFor="let bn of binThres.hardwareName">{{bn}}</option>
+                </select>
+              </div>
+              <label for="tresh">Bin Threshold</label>
+              <input  [(ngModel)]="binThres.binThreshold" required name="binThreshold" class="form-control" id="tresh" />
+            </div>
+            <label for="cond">Bin Condition</label>
+            <input  [(ngModel)]="binThres.condition" required name="condition" class="form-control" id="cond" />
+
+
+            <div class="modal-footer">
+              <input type="submit"  class="btn btn-primary" style="float: right"  value="Add Threshold">
             </div>
           </form>
 

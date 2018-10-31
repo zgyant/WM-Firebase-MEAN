@@ -50,9 +50,9 @@ export class UsermanagementComponent implements OnInit {
                   { "data": "fullName" },
                   { "data": "email" },
                   { "data": "userType" },
-                  {"data":"_id","mRender": function ( data, type, row ) {
-                          return '<a title="Toggle"  style="color: orangered" class="copyJS" href="user/toggle/'+data+'" >Remove</a>';
-                      }}
+                  // {"data":"_id","mRender": function ( data, type, row ) {
+                  //         return '<a title="Toggle"  style="color: orangered" class="copyJS" href="user/toggle/'+data+'" >Remove</a>';
+                  //     }}
               ],
           });
   }

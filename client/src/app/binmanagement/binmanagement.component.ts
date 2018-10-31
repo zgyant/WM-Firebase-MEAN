@@ -12,6 +12,12 @@ export class BinmanagementComponent  implements OnInit {
             userEmail: [],
             binTitle:[],
         };
+    binThres=
+        {
+            hardwareName:[],
+            binThreshold:"",
+            condition:"",
+        };
     userType:any;
     constructor(private http: HttpClient, private router: Router) {
     }
@@ -20,17 +26,26 @@ export class BinmanagementComponent  implements OnInit {
     {
 
         this.http.post('/api/assign/user', this.binAssign).subscribe(res=>{
-            this.router.navigate(['/bin_management']);
+
+            console.log(res);
+                this.router.navigate(['/home']);
         });
 
     }
 
+    assignThres()
+    {
+        this.http.post('/api/setThres', this.binThres).subscribe(res=>{
+            this.router.navigate(['/home']);
+        });
+    }
 
     ngOnInit() {
 
         var allLocation=new Array();
         var allEmail=new Array();
         var allHardware=new Array();
+        var thresHard=new Array();
 
         $.ajax({
             type: 'GET',
@@ -52,6 +67,7 @@ export class BinmanagementComponent  implements OnInit {
             }
         });
 this.binAssign.binTitle=allLocation;
+this.binThres.hardwareName=thresHard;
 this.binAssign.userEmail=allEmail;
         function passData(data)
         {
@@ -61,7 +77,9 @@ this.binAssign.userEmail=allEmail;
 
                 allLocation.push(data[i].location_precint);
                 allHardware.push(data[i].hardware_id);
+                thresHard.push(data[i].location_precint);
             }
+
 
         }
 
