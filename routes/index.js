@@ -21,6 +21,8 @@ admin.initializeApp({
     databaseURL: "https://wastemanagement-1540370241908.firebaseio.com"
 });
 
+
+
 // Get a database reference to our posts
 var db = admin.database();
 var ref = db.ref();
